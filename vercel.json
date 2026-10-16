@@ -1,0 +1,92 @@
+{
+"trailingSlash": true,
+"rewrites": [
+{
+"source": "/p/showroom-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9SSRHVl9BkDz0tS7PHV0gRVWxy-SwauMBIUtvd-dbwIFxYRXYpZ8PSunhRKsZuKUim6peuMtiyIpQqPUj6rTBnPDz1XDyTx4GUjZ2Kw1_IU1f9_4CEcW9v97E95vmyxcQ29-P8bUHe0ctWe=w:w"
+},
+{
+"source": "/p/kitchen1-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Sy51mfQVDETSl77bdGI7raczQYAkIA9NZb0SAj7qY6yVfO2RPWpXnvmtv3QQ91cDoz8rk63UEQFx6DoQSc3UaHt0Uvu5O3HJs5BxW-kbtg7489ympg1gPYKHeF-TmQUnGfuzomEq1LT7M=w:w"
+},
+{
+"source": "/p/bath_vanity-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TsjkehmMb9CrAf_w6UIks7CTTeJC6fpJRsxxbpnEto2GOvg7CtV79ASfDgwzj6XxfaGuSTxR0DjRvcuFDBKO1-bDRBpNiphXh6Ax1AeBIhaX7NpeAMm5uQYMPxuyofUhA9Wpe412Eql5ur=w:w"
+},
+{
+"source": "/p/bath_tub_window-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TZfYKAdHHWCeYMwPf_YbngJP8TQsmD46vmtUCf8QEc0rZ7iuoJFaRvZHC05jDouJngJGjo18eZh3eQFaCoOug5miSLIhex20BmIx86xkTIBVZ7Am8mv5AsybQfTfwYPSCtPf-pofu_HJk=w:w"
+},
+{
+"source": "/p/shower_dark-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TTLH_49p-zNTaJ6CKghy-kzEfM22W2hV-q6QpsPEYT2KanjIWVrbTY6Ye659fX_7f1ad1ziu8F8xvucW6YngjotnPrK451Is7MNuZvLIOxiQz1brVZDGLCwpqfAjrj2L3xRYxTvi_AjkJI=w:w"
+},
+{
+"source": "/p/tub_free-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QxJepZLteFpjeeOrFuTBt7hm9V2XQZfpcrPBxnkzDiEp6eLtp2I7lMguIHrAaDCH4LOv3wSHI3eJMj-q2A2MrHSQU_kFmGSurYGQ87RZqtHlUVnXeG3sJPRDtT10xrLDVH7aw3lwEj6Oef=w:w"
+},
+{
+"source": "/p/exterior_patio-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Q2bGpLbVrRPrMVNOV77VCR46OLR3xS1y3tEw4kURjVpDncnvzNxBLTdaTFvzGblvBFJme5xX73yHR_3o2tcIWomEAPHUqwAfl9Ejuylxj7z7HCV3qEg9nwYmAVkJtIxFxGyrnz=w:w"
+},
+{
+"source": "/p/reno_progress-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9SgvBvqiYbkp5FUIgkfNWcqjDxAZfcLKB8Ji7-fegIa5LoM7jqFzepmL5bB04U217N1T82Pv4mJwNuTbX6htkeGG9Zp8TjmJzU2qutt-hKvxPA3zwL_KG1Xotrv3LXKckKyAWOu=w:w"
+},
+{
+"source": "/p/new_build-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Sn4rSCmWgq2gKILHlkgADTmENgSl3HHIFqXD9xfFPoi8HWfhevtLJY9Wj_hwFKr8JFLz-yKq4aaVKhHINYwpOA6PMkT1G631kiDIAZ6z9Y1-hZpBXLIH6rlyo-JRfvUdDu3vu__K2QdUZk=w:w"
+},
+{
+"source": "/p/shower_glass-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TW8ulqCw7RTEovYZJ98PuqQgOj88SN4RbWiYhYBbtTkp_IFeBP_N1fJFQ0YYzLG-EMx2W3jH-IqGUd-k6C96zLooQNzcyz4sSXPZMwDzkL874UnGVIfEnCiBuPnUg5UAP5v_aA29cjmvw=w:w"
+},
+{
+"source": "/p/roof_cedar-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TMzdH15Rcaj2TepUCFLXwYC7Xfr8ADXlcQgvvBmi5nYiaGqJ3OzgqWNbC_SMiKC71oUneYjJcadD5wpnZM70-KtwNAtKB5yV9CplsgPrKZclF0yrjuum-0aNorNFql3ers0Ub-qFSuhwtb=w:w"
+},
+{
+"source": "/p/addition_wrap-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QE0_BOqM6mm4JJLQo2ewRKzHbdvkU1A1_a1pR_LZJMeHL1xEvAvzK0aLrml-DiUDT7fJFrlcj_ez84GRQP08Rgaqb-c1uDgYNf2PI9X7sR2Fgz7a9Yr6db33kEor4joz_Xz99k=w:w"
+},
+{
+"source": "/p/kitchen2-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QxKcgailtMrhVHushvmDWM6FWhJtNwbzAeTr2wI_TqUmI7n0M907i_VCBOw3_mjeamslTKWFJkTK7WJ_2l6NpLfBZ2joYjvhkMft9onS-4La-XmxJR8PxLXMlodJBzwPDKo4_lb3VAYcg=w:w"
+},
+{
+"source": "/p/bath_wood-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9RbMzYa4DkCosw8v7yZohRF3Gg0loNfJZTIrf0XM6wVP8m-C_nmHBuqfcr0L852220oQlSXjJC5bgpl0dmnkORoE5lf5ogRfuHN4LJt8kaKzlJMdname9AVUXeoJ7zcDDWeOlspHdTdFw8q=w:w"
+},
+{
+"source": "/p/roof_slate-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9T-w3Q5EurDxPaeEpvq4ziweseKehR1ZaChqZGjRtZfVYFINHAQDF0eFQb2Di7Ccm1Buviic57lA8prV6mBDpppxbap3_o700x2dIrQeQaZhI5MQYIKOjf0P7mER4jjDgawz_GLsP7ZtSbZ=w:w"
+},
+{
+"source": "/p/bath_lit-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TDi7yCI-Grsc4c6X1Xr2mmDFh174IODAz6sq5waI6zDq6-ByMIISH5si-J3Hdyxb4r1QpwzG25Vu98l3SNLvVuA1N6MRwJx2wWoSwcWyf9imoaMUZqIOEz2PMFe6yGIj1uMpAzHHrOGPI=w:w"
+},
+{
+"source": "/p/bath_marble-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QoBJpBZOIQwut74_aquFq5A1a2yENrgKI6v03JDNrQFEymzFegjRTPKMP2PKy36aGKdoNVLKYzfYce3wstFC3jddUO7YyKhVBHHU3-ch9KGMn0-4TwiLu6DryWBtR6OhSbCX44PXpP16Y=w:w"
+},
+{
+"source": "/p/bath_white-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QHUECSa_oQW5V-6op6ZM53ymcFR84ZFjUprwrSqUAwRHpuID22hNYNqzhsCue0gfvETCPbRCTvu19JQ5RoWjTSR3mGo3fllbJhw1dFr_hHp9s9C_XBgvXR71ysZihOQuw16QF6SRlZG_o=w:w"
+},
+{
+"source": "/p/framing-:w(\\d+).jpg",
+"destination": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Tccfz2g9dzfWmS2QrNgeDl3EBVvVlTW_LPrGl8jn3gojBKikE-rcJvBJWipTQYutFafTsl6I4Ya5hRV0kcNknWa15oDjSwjSB5S0VKJFin9LG_VAl52BGBZELKaF9w7o0PA0e6Ow=w:w"
+}
+],
+"headers": [
+{
+"source": "/p/(.*)",
+"headers": [
+{
+"key": "Cache-Control",
+"value": "public, max-age=604800"
+}
+]
+}
+]
+}
