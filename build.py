@@ -5,6 +5,8 @@ Add blog posts to POSTS (or posts/*.json) and rebuild; feed.xml + sitemap update
 import os, json, shutil, html, datetime, glob, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pages_seo import PAGES
+from logo_data import LOGO_B64
+LOGO = "data:image/png;base64," + LOGO_B64
 
 _v = os.environ.get("VERCEL_PROJECT_PRODUCTION_URL")
 DOMAIN = os.environ.get("SITE_URL") or (f"https://{_v}" if _v else "https://ce-enterprises-indy.vercel.app")  # set SITE_URL once the custom domain is live
@@ -212,7 +214,7 @@ def nav():
   <a href="tel:{BIZ["tel"]}">Call {BIZ["phone"]}</a>
 </div></div>
 <header class="hdr"><div class="wrap hdr-in">
-  <a href="/" class="brand" aria-label="C.E. Enterprises home"><img src="/img/logo.png" alt="C.E. Enterprises General Contractor logo" width="64" height="62"><span><b>C.E. Enterprises</b><small>Roofing · Siding · Restoration</small></span></a>
+  <a href="/" class="brand" aria-label="C.E. Enterprises home"><img src="{LOGO}" alt="C.E. Enterprises logo" width="64" height="62"><span><b>C.E. Enterprises</b><small>Roofing · Siding · Restoration</small></span></a>
   <input type="checkbox" id="mt" class="mt"><label for="mt" class="burger" aria-label="Menu"><i></i><i></i><i></i></label>
   <nav class="nav"><ul>
     <li><a href="/">Home</a></li>
@@ -235,7 +237,7 @@ def footer():
 <section class="cta-band"><div class="wrap"><h2>From the roof to the street — let's talk.</h2><p>Free estimates for residential and commercial projects across the Indianapolis metro.</p>
 <a class="btn btn-gold btn-lg" href="tel:{BIZ["tel"]}">Call {BIZ["phone"]}</a></div></section>
 <footer class="ftr"><div class="wrap fgrid">
- <div><img src="/img/logo.png" alt="" width="90" height="88" loading="lazy"><p><b>{e(BIZ["name"])}</b><br>{BIZ["street"]}<br>{BIZ["city"]}, {BIZ["state"]} {BIZ["zip"]}</p>
+ <div><img src="{LOGO}" alt="" width="90" height="88"><p><b>{e(BIZ["name"])}</b><br>{BIZ["street"]}<br>{BIZ["city"]}, {BIZ["state"]} {BIZ["zip"]}</p>
  <p><a href="tel:{BIZ["tel"]}">{BIZ["phone"]}</a><br><a href="mailto:{BIZ["email"]}">{BIZ["email"]}</a></p></div>
  <div><h4>Roofing</h4><ul>{rf}</ul></div>
  <div><h4>Services</h4><ul>{svc}</ul></div>
@@ -264,7 +266,7 @@ def page(path, title, desc, body, extra_schema=None, og_img=None):
     doc = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)}</title><meta name="description" content="{e(desc)}">
-<link rel="canonical" href="{canon}"><link rel="icon" href="/img/logo.png">
+<link rel="canonical" href="{canon}"><link rel="icon" href="{LOGO}">
 <meta property="og:type" content="website"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}">
 <meta property="og:url" content="{canon}"><meta property="og:image" content="{og_img or imgabs('exterior_patio')}"><meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" type="application/rss+xml" title="C.E. Enterprises Blog" href="/feed.xml">
@@ -450,7 +452,7 @@ def build_blog():
 
 def main():
     if os.path.exists("public"): shutil.rmtree("public")
-    os.makedirs("public"); shutil.copytree("img","public/img"); shutil.copy("style.css","public/style.css")
+    os.makedirs("public/img"); open("public/img/logo.png","wb").write(__import__("base64").b64decode(LOGO_B64)); shutil.copy("style.css","public/style.css")
     build_home()
     for s in SERVICES: build_service(s)
     for c in CITIES: build_city(c)

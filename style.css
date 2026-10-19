@@ -16,7 +16,7 @@ h1{font-size:clamp(2rem,4.6vw,3.3rem)}h2{font-size:clamp(1.6rem,3.2vw,2.4rem)}h3
 .hdr{position:sticky;top:0;z-index:50;background:#fff;border-bottom:3px solid var(--gold);box-shadow:0 2px 12px rgba(0,0,0,.06)}
 .hdr-in{display:flex;align-items:center;justify-content:space-between;min-height:78px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
-.brand img{width:64px;height:auto}.brand b{display:block;font:700 1.25rem Oswald}.brand small{color:var(--muted);font-size:.75rem;letter-spacing:1px;text-transform:uppercase}
+.brand img{width:64px;height:62px;flex:0 0 64px;object-fit:contain;overflow:hidden;font-size:0}.brand b{display:block;font:700 1.25rem Oswald}.brand small{color:var(--muted);font-size:.75rem;letter-spacing:1px;text-transform:uppercase}
 .nav>ul{display:flex;gap:4px;list-style:none;margin:0;padding:0;align-items:center}
 .nav a{display:block;padding:10px 12px;text-decoration:none;color:var(--ink);font-weight:500}
 .nav a:hover{color:var(--green)}
