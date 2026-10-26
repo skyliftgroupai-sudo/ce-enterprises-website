@@ -116,3 +116,10 @@ details{border-bottom:1px solid var(--line);padding:14px 0}summary{font-weight:6
 .two-up{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
 @media(min-width:981px){.fgrid{grid-template-columns:1.3fr 1fr 1fr 1fr 1fr}}
 .nav a{padding:10px 10px}
+.qform .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.fmsg{margin:0;font-size:.92rem;min-height:0}.fmsg:empty{display:none}.fmsg.err{color:#b3261e}
+.qform button[disabled]{opacity:.7;cursor:wait}
+/* GHL form card: the embedded form brings its own logo, heading and padding */
+.qform.ghl{padding:0;gap:0;overflow:hidden;display:block}
+.qform.ghl iframe{display:block;width:100%;border:0}
+.qform.ghl .fine{padding:4px 16px 18px}

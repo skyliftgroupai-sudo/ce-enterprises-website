@@ -259,6 +259,7 @@ def schema_biz():
     }
 
 def page(path, title, desc, body, extra_schema=None, og_img=None):
+    _ghl_count["n"] = 0
     canon = DOMAIN + path
     schemas = [schema_biz()] + (extra_schema or [])
     ld = "\n".join(f'<script type="application/ld+json">{json.dumps(s)}</script>' for s in schemas)
@@ -273,21 +274,22 @@ def page(path, title, desc, body, extra_schema=None, og_img=None):
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">{ld}</head><body>{nav()}<main>{body}</main>{footer()}
 <script>document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>{{document.getElementById('mt').checked=false}}));
-document.querySelectorAll('.qform').forEach(function(f){{f.addEventListener('submit',function(ev){{ev.preventDefault();var d=new FormData(f);var b='Name: '+d.get('name')+'%0D%0APhone: '+d.get('phone')+'%0D%0ACity: '+d.get('city')+'%0D%0AService: '+d.get('service')+'%0D%0A%0D%0A'+encodeURIComponent(d.get('msg')||'');location.href='mailto:{BIZ["email"]}?subject='+encodeURIComponent('Estimate request – '+d.get('service'))+'&body='+b;}})}});</script>
+</script>
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
 </body></html>'''
     out = os.path.join("public", path.strip("/"), "index.html") if path.endswith("/") else os.path.join("public", path.strip("/"))
     os.makedirs(os.path.dirname(out), exist_ok=True)
     open(out, "w").write(doc)
     return canon
 
+GHL_FORM_ID = "LyyiM2kDtAghhDY21zJX"
+_ghl_count = {"n": 0}
 def quote_form(heading="Get Your Free Estimate"):
-    opts = "".join(f"<option>{s['nav']}</option>" for s in SERVICES) + "<option>Storm / Emergency Roof Repair</option><option>Commercial Project</option>"
-    cts = "".join(f"<option>{c['name']}</option>" for c in CITIES) + "<option>Other (within 40 miles)</option>"
-    return f'''<form class="qform"><h3>{heading}</h3>
-<input name="name" required placeholder="Full name" aria-label="Full name"><input name="phone" required type="tel" placeholder="Phone" aria-label="Phone">
-<select name="city" aria-label="City">{cts}</select><select name="service" aria-label="Service">{opts}</select>
-<textarea name="msg" rows="3" placeholder="Tell us about your project" aria-label="Project details"></textarea>
-<button class="btn btn-gold" type="submit">Request Estimate</button><p class="fine">Prefer to talk? <a href="tel:{BIZ["tel"]}">{BIZ["phone"]}</a></p></form>'''
+    # GoHighLevel form "C.E Enterprises Indy" (it brings its own logo + heading). Leads go straight to GHL.
+    _ghl_count["n"] += 1
+    iid = f"inline-{GHL_FORM_ID}" + ("" if _ghl_count["n"] == 1 else f"-{_ghl_count['n']}")
+    return f'''<div class="qform ghl"><iframe src="https://api.leadconnectorhq.com/widget/form/{GHL_FORM_ID}" style="width:100%;height:800px;border:none" id="{iid}" data-layout="{{'id':'INLINE'}}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="C.E Enterprises Indy" data-height="689" data-layout-iframe-id="{iid}" data-form-id="{GHL_FORM_ID}" data-cookie-consent="true" data-cookie-consent-provider="auto" title="C.E Enterprises Indy"></iframe>
+<p class="fine">Prefer to talk? <a href="tel:{BIZ["tel"]}">{BIZ["phone"]}</a></p></div>'''
 
 def reviews_html():
     cards = "".join(f'<figure class="rev"><div class="stars">★★★★★</div><blockquote>“{e(t)}”</blockquote><figcaption>— {e(n)}, Google review</figcaption></figure>' for n,t in REVIEWS)
