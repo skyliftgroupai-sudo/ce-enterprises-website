@@ -123,3 +123,22 @@ details{border-bottom:1px solid var(--line);padding:14px 0}summary{font-weight:6
 .qform.ghl{padding:0;gap:0;overflow:hidden;display:block}
 .qform.ghl iframe{display:block;width:100%;border:0}
 .qform.ghl .fine{padding:4px 16px 18px}
+/* thank-you page */
+.ty-hero{position:relative;color:#fff;text-align:center;background:linear-gradient(180deg,rgba(6,40,32,.93),rgba(6,58,47,.88)),var(--bg) center/cover no-repeat}
+.ty-in{padding:72px 16px 80px;max-width:860px}
+.ty-hero h1{color:#fff;text-wrap:balance}.ty-hero .lead{margin:0 auto}.ty-hero .hero-cta{justify-content:center}
+.ty-check{width:84px;height:84px;margin:0 auto 18px}
+.ty-check svg{width:100%;height:100%;fill:none;stroke:var(--gold);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.ty-check circle{stroke-dasharray:151;stroke-dashoffset:151;animation:ty-draw .7s ease-out forwards}
+.ty-check path{stroke-dasharray:40;stroke-dashoffset:40;animation:ty-draw .4s .6s ease-out forwards}
+@keyframes ty-draw{to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){.ty-check circle,.ty-check path{animation:none;stroke-dashoffset:0}}
+.ty-steps{list-style:none;counter-reset:s;padding:0;margin:32px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.ty-steps li{counter-increment:s;background:#fff;border:1px solid var(--line);border-top:4px solid var(--green);border-radius:var(--r);padding:22px;position:relative}
+.ty-steps li:before{content:counter(s);display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--gold);color:#1b1408;font:700 1.1rem Oswald;margin-bottom:12px}
+.ty-steps b{display:block;font:600 1.2rem Oswald;color:var(--ink);margin-bottom:4px}.ty-steps span{color:var(--muted)}
+.ty-card{background:#fff;border-radius:var(--r);border-top:5px solid var(--gold);box-shadow:0 8px 24px rgba(0,0,0,.1);padding:28px;text-align:center}
+.ty-card img{margin:0 auto 10px}.ty-card h3{font-size:1.2rem}
+.ty-badges{list-style:none;padding:0;margin:14px 0 20px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.ty-badges li{border:1px solid var(--gold);color:var(--gold-d);border-radius:30px;padding:5px 12px;font-size:.88rem;font-weight:600}
+.map-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:16px}

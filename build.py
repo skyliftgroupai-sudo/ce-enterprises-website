@@ -258,14 +258,14 @@ def schema_biz():
      "sameAs":[BIZ["facebook"]],
     }
 
-def page(path, title, desc, body, extra_schema=None, og_img=None):
+def page(path, title, desc, body, extra_schema=None, og_img=None, noindex=False):
     _ghl_count["n"] = 0
     canon = DOMAIN + path
     schemas = [schema_biz()] + (extra_schema or [])
     ld = "\n".join(f'<script type="application/ld+json">{json.dumps(s)}</script>' for s in schemas)
     doc = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{e(title)}</title><meta name="description" content="{e(desc)}">
+<title>{e(title)}</title><meta name="description" content="{e(desc)}">{'<meta name="robots" content="noindex, follow">' if noindex else ''}
 <link rel="canonical" href="{canon}"><link rel="icon" href="{LOGO}">
 <meta property="og:type" content="website"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}">
 <meta property="og:url" content="{canon}"><meta property="og:image" content="{og_img or imgabs('exterior_patio')}"><meta name="twitter:card" content="summary_large_image">
@@ -336,7 +336,8 @@ def build_home():
 <section class="sec alt" id="work"><div class="wrap"><p class="eyebrow">Real projects</p><h2>Our Work</h2><p class="center sub">Every photo here is a C.E. Enterprises job, straight from our Google Business Profile.</p><div class="gallery">{gal}</div></div></section>
 {reviews_html()}
 <section class="sec" id="areas"><div class="wrap"><p class="eyebrow">Service areas</p><h2>Serving the Indianapolis Metro — 40-Mile Radius</h2><div class="areas">{areas}</div>
-<div class="map"><iframe title="C.E. Enterprises location" loading="lazy" src="https://www.google.com/maps?q=2065+S+Kitley+Ave,+Indianapolis,+IN+46203&output=embed"></iframe></div></div></section>
+<div class="map"><iframe title="C.E. Enterprises Indy Roofing Siding &amp; Restoration LLC on Google Maps" loading="lazy" src="https://www.google.com/maps?q=C.E.+Enterprises+indy+Roofing+Siding+%26+Restoration+LLC,+2065+S+Kitley+Ave,+Indianapolis,+IN+46203&amp;output=embed"></iframe></div>
+<div class="map-cta"><a class="btn btn-green" href="{BIZ["gmb"]}" target="_blank" rel="noopener">View us on Google ★ 4.8</a><a class="btn btn-outline" href="https://www.google.com/maps/dir/?api=1&amp;destination=C.E.+Enterprises+indy+Roofing+Siding+%26+Restoration+LLC,+2065+S+Kitley+Ave,+Indianapolis,+IN+46203" target="_blank" rel="noopener">Get Directions</a></div></div></section>
 <section class="sec alt"><div class="wrap two"><div><p class="eyebrow">How it works</p><h2>Booking an Estimate</h2>
 <ol class="steps"><li><b>Call or send the form.</b> Tell us what's going on — leak, storm damage, new siding, an addition or a remodel.</li><li><b>On-site visit.</b> Chris comes out, inspects, takes photos and listens to what you want.</li><li><b>Written estimate.</b> Clear scope and price, no pressure.</li><li><b>We build it.</b> One crew, clean site, regular updates through the final walkthrough.</li></ol></div>
 <div id="quote" class="qwrap">{quote_form("Request Your Free Estimate")}</div></div></section>
@@ -450,6 +451,38 @@ def build_blog():
 <enclosure url="{e(imgabs(p["photo"]))}" type="image/jpeg" length="0"/></item>''' for p in posts)
     open("public/feed.xml","w").write(f'<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>C.E. Enterprises Blog</title><link>{DOMAIN}/blog/</link><description>Roofing, siding and remodeling advice for the Indianapolis area.</description><language>en-us</language>{items}</channel></rss>')
     return posts
+
+def build_thanks():
+    revs = "".join(f'<figure class="rev"><div class="stars">★★★★★</div><blockquote>“{e(t)}”</blockquote><figcaption>— {e(n)}, Google review</figcaption></figure>' for n,t in REVIEWS[:3])
+    gal = "".join(f'<img src="{img(k,600)}" alt="C.E. Enterprises project" loading="lazy">' for k in ["exterior_patio","kitchen2","roof_slate","shower_glass","framing","bath_wood"])
+    body = f'''
+<section class="ty-hero" style="--bg:url('{img("exterior_patio",1800)}')"><div class="wrap ty-in">
+ <div class="ty-check" aria-hidden="true"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg></div>
+ <p class="eyebrow light">Request received</p>
+ <h1>Thank you. Your estimate request is in.</h1>
+ <p class="lead">Chris Epple, the owner of C.E. Enterprises, reviews every request personally. You'll hear from us by phone during business hours, Monday to Friday, 7 AM to 7 PM.</p>
+ <div class="hero-cta"><a class="btn btn-gold btn-lg" href="tel:{BIZ["tel"]}">Need us now? Call {BIZ["phone"]}</a><a class="btn btn-ghost btn-lg" href="/#work">See Our Work</a></div>
+</div></section>
+<section class="sec"><div class="wrap"><p class="eyebrow">What happens next</p><h2>From Your Request to a Written Estimate</h2>
+<ol class="ty-steps">
+ <li><b>We call you</b><span>Chris calls to hear what's going on and set a time to come out.</span></li>
+ <li><b>On-site visit</b><span>We inspect, take photos and talk through the options with you.</span></li>
+ <li><b>Written estimate</b><span>A clear scope and price, with no pressure and no surprises.</span></li>
+ <li><b>We get to work</b><span>One crew, a clean job site and updates through the final walkthrough.</span></li>
+</ol></div></section>
+<section class="sec alt"><div class="wrap two"><div>
+ <p class="eyebrow">Save time on the visit</p><h2>Have These Ready</h2>
+ <ul class="checks"><li>Photos of the problem area: leaks, stains, damaged shingles or siding</li><li>The rough age of your roof or siding, if you know it</li><li>Your insurance claim number, if the damage came from a storm</li><li>A few days and times that work for an on-site visit</li></ul>
+ <p>Active leak or storm damage? Don't wait for our call. Phone <a href="tel:{BIZ["tel"]}">{BIZ["phone"]}</a> now.</p></div>
+ <div class="ty-card"><img src="{LOGO}" alt="" width="72" height="70"><h3>{e(BIZ["name"])}</h3>
+ <p>{BIZ["street"]}<br>{BIZ["city"]}, {BIZ["state"]} {BIZ["zip"]}</p>
+ <p><a href="tel:{BIZ["tel"]}">{BIZ["phone"]}</a><br><a href="mailto:{BIZ["email"]}">{BIZ["email"]}</a></p>
+ <ul class="ty-badges"><li>★ 4.8 on Google</li><li>BBB Accredited since 2019</li><li>Owner-operated</li></ul>
+ <a class="btn btn-green" href="{BIZ["facebook"]}" target="_blank" rel="noopener">Follow us on Facebook</a></div></div></section>
+<section class="sec"><div class="wrap"><p class="eyebrow">Recent projects</p><h2>While You Wait, See Our Work</h2><div class="gallery">{gal}</div></div></section>
+<section class="sec alt"><div class="wrap"><p class="eyebrow">4.8 ★ on Google</p><h2>What Your Neighbors Say</h2><div class="revs">{revs}</div>
+<p class="center"><a class="btn btn-outline" href="/blog/">Read our roofing guides</a></p></div></section>'''
+    page("/thank-you/", "Thank You | C.E. Enterprises Indianapolis", "Your estimate request has been received. Here's what happens next.", body, None, None, noindex=True)
 
 def main():
     if os.path.exists("public"): shutil.rmtree("public")
