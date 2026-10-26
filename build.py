@@ -8,8 +8,7 @@ from pages_seo import PAGES
 from logo_data import LOGO_B64
 LOGO = "data:image/png;base64," + LOGO_B64
 
-_v = os.environ.get("VERCEL_PROJECT_PRODUCTION_URL")
-DOMAIN = os.environ.get("SITE_URL") or (f"https://{_v}" if _v else "https://ce-enterprises-indy.vercel.app")  # set SITE_URL once the custom domain is live
+DOMAIN = os.environ.get("SITE_URL", "https://www.ceenterprisesindy.com").rstrip("/")
 BIZ = {
     "name": "C.E. Enterprises Indy Roofing Siding & Restoration LLC",
     "short": "C.E. Enterprises",
@@ -461,6 +460,8 @@ def main():
     urls = ["/"]+[f'/{s["slug"]}/' for s in SERVICES]+[f'/{p["slug"]}/' for p in PAGES]+[f'/roofing-contractor-{c["slug"]}-in/' for c in CITIES]+["/blog/"]+[f'/blog/{p["slug"]}/' for p in posts]
     today = datetime.date.today().isoformat()
     open("public/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{DOMAIN}{u}</loc><lastmod>{today}</lastmod></url>" for u in urls)+"</urlset>")
+    # Google Search Console verification (keep this file live to stay verified)
+    open("public/googlee8ada53be5805e5a.html","w").write("google-site-verification: googlee8ada53be5805e5a.html")
     open("public/robots.txt","w").write(f"User-agent: *\nAllow: /\nSitemap: {DOMAIN}/sitemap.xml\n")
     rw=[{"source":f"/p/{k}-:w(\\d+).jpg","destination":f"{G}{v}=w:w"} for k,v in P.items()]
     json.dump({"trailingSlash":True,"rewrites":rw,"headers":[{"source":"/p/(.*)","headers":[{"key":"Cache-Control","value":"public, max-age=604800"}]}]},open("public/vercel.json","w"),indent=0)
