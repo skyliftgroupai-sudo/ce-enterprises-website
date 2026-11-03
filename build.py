@@ -6,6 +6,7 @@ import os, json, shutil, html, datetime, glob, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pages_seo import PAGES
 from logo_data import LOGO_B64
+from favicon_data import FAVICON_ICO, ICON_192, ICON_512, APPLE_180
 LOGO = "data:image/png;base64," + LOGO_B64
 
 DOMAIN = os.environ.get("SITE_URL", "https://www.ceenterprisesindy.com").rstrip("/")
@@ -250,7 +251,7 @@ def schema_biz():
     return {
      "@context":"https://schema.org","@type":["RoofingContractor","GeneralContractor"],
      "name":BIZ["name"],"url":DOMAIN+"/","telephone":BIZ["tel"],"email":BIZ["email"],
-     "image":imgabs("exterior_patio"),"logo":DOMAIN+"/img/logo.png","founder":{"@type":"Person","name":BIZ["owner"]},
+     "image":imgabs("exterior_patio"),"logo":DOMAIN+"/icon-512.png","founder":{"@type":"Person","name":BIZ["owner"]},
      "address":{"@type":"PostalAddress","streetAddress":BIZ["street"],"addressLocality":BIZ["city"],"addressRegion":BIZ["state"],"postalCode":BIZ["zip"],"addressCountry":"US"},
      "geo":{"@type":"GeoCoordinates","latitude":39.7356,"longitude":-86.1287},
      "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"07:00","closes":"19:00"}],
@@ -262,11 +263,13 @@ def page(path, title, desc, body, extra_schema=None, og_img=None, noindex=False)
     _ghl_count["n"] = 0
     canon = DOMAIN + path
     schemas = [schema_biz()] + (extra_schema or [])
+    if path == "/":
+        schemas.append({"@context":"https://schema.org","@type":"WebSite","name":"C.E. Enterprises","alternateName":["CE Enterprises Indy", BIZ["name"]],"url":DOMAIN+"/"})
     ld = "\n".join(f'<script type="application/ld+json">{json.dumps(s)}</script>' for s in schemas)
     doc = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)}</title><meta name="description" content="{e(desc)}">{'<meta name="robots" content="noindex, follow">' if noindex else ''}
-<link rel="canonical" href="{canon}"><link rel="icon" href="{LOGO}">
+<link rel="canonical" href="{canon}"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}">
 <meta property="og:url" content="{canon}"><meta property="og:image" content="{og_img or imgabs('exterior_patio')}"><meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" type="application/rss+xml" title="C.E. Enterprises Blog" href="/feed.xml">
@@ -495,6 +498,9 @@ def main():
     urls = ["/"]+[f'/{s["slug"]}/' for s in SERVICES]+[f'/{p["slug"]}/' for p in PAGES]+[f'/roofing-contractor-{c["slug"]}-in/' for c in CITIES]+["/blog/"]+[f'/blog/{p["slug"]}/' for p in posts]
     today = datetime.date.today().isoformat()
     open("public/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{DOMAIN}{u}</loc><lastmod>{today}</lastmod></url>" for u in urls)+"</urlset>")
+    import base64 as _b
+    for _name, _data in [("favicon.ico", FAVICON_ICO), ("icon-192.png", ICON_192), ("icon-512.png", ICON_512), ("apple-touch-icon.png", APPLE_180)]:
+        open(f"public/{_name}", "wb").write(_b.b64decode(_data))
     # Google Search Console verification (keep this file live to stay verified)
     open("public/googlee8ada53be5805e5a.html","w").write("google-site-verification: googlee8ada53be5805e5a.html")
     open("public/robots.txt","w").write(f"User-agent: *\nAllow: /\nSitemap: {DOMAIN}/sitemap.xml\n")
