@@ -142,3 +142,15 @@ details{border-bottom:1px solid var(--line);padding:14px 0}summary{font-weight:6
 .ty-badges{list-style:none;padding:0;margin:14px 0 20px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
 .ty-badges li{border:1px solid var(--gold);color:var(--gold-d);border-radius:30px;padding:5px 12px;font-size:.88rem;font-weight:600}
 .map-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:16px}
+/* blog: answer-first box, tables, sources */
+.post .answer{background:var(--alt);border-left:5px solid var(--gold);border-radius:0 var(--r) var(--r) 0;padding:18px 22px;margin:0 0 28px}
+.post .answer p{margin:0}.post .answer b:first-child{display:block;font:600 .8rem Inter;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold-d);margin-bottom:6px}
+.post .tbl{overflow-x:auto;margin:18px 0 24px}
+.post table{width:100%;border-collapse:collapse;font-size:.97rem;min-width:520px}
+.post th,.post td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.post th{background:var(--green);color:#fff;font-weight:600}
+.post tr:nth-child(even) td{background:#faf8f3}
+.post .note{font-size:.9rem;color:var(--muted)}
+.post .cta-inline{background:var(--green);color:#fff;border-radius:var(--r);padding:20px 22px;margin:28px 0}
+.post .cta-inline a{color:var(--gold);font-weight:700}
+.sources ul{font-size:.92rem}

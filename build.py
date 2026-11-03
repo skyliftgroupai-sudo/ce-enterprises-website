@@ -50,11 +50,16 @@ def imgabs(k, w=1200): return f"{G}{P[k]}=w{w}"
 e = html.escape
 
 CITIES = [
- {"slug":"indianapolis","name":"Indianapolis","note":"From Fountain Square and Garfield Park to Irvington and Broad Ripple, our shop on S Kitley Ave puts us minutes from most Indianapolis neighborhoods."},
- {"slug":"greenwood","name":"Greenwood","note":"Greenwood homeowners get the same crew and the same owner on site — a short drive down I-65 from our Indianapolis shop."},
- {"slug":"westfield","name":"Westfield","note":"Westfield's newer subdivisions and established homes alike see roof, siding and addition work from our team on the north side."},
- {"slug":"noblesville","name":"Noblesville","note":"We serve Noblesville and the rest of Hamilton County with roofing, siding and remodeling for homes and commercial buildings."},
- {"slug":"avon","name":"Avon","note":"West of the city in Hendricks County, Avon homeowners call us for storm repairs, re-roofs, siding and room additions."},
+ {"slug":"indianapolis","name":"Indianapolis","county":"Marion County","zips":"46201, 46203, 46205, 46219, 46220, 46227, 46237","near":["Fountain Square","Garfield Park","Irvington","Beech Grove","Southport","Broad Ripple"],
+  "note":"Our shop is on S Kitley Ave in Indianapolis, so most of the city is a short drive for the crew and for Chris."},
+ {"slug":"greenwood","name":"Greenwood","county":"Johnson County","zips":"46142, 46143","near":["Center Grove","Bargersville","Whiteland","New Whiteland","Southport","Franklin Township"],
+  "note":"Greenwood homeowners get the same crew and the same owner on site, a short drive down I-65 from our Indianapolis shop."},
+ {"slug":"westfield","name":"Westfield","county":"Hamilton County","zips":"46074","near":["Carmel","Noblesville","Zionsville","Sheridan","Fishers"],
+  "note":"From newer subdivisions to established neighborhoods, Westfield homeowners call us for roof, siding and addition work."},
+ {"slug":"noblesville","name":"Noblesville","county":"Hamilton County","zips":"46060, 46062","near":["Fishers","Westfield","Cicero","Carmel","Arcadia"],
+  "note":"We serve Noblesville and the rest of Hamilton County with roofing, siding and remodeling for homes and commercial buildings."},
+ {"slug":"avon","name":"Avon","county":"Hendricks County","zips":"46123","near":["Plainfield","Brownsburg","Danville","Speedway","Clermont"],
+  "note":"West of the city in Hendricks County, Avon homeowners call us for storm repairs, re-roofs, siding and room additions."},
 ]
 
 SERVICES = [
@@ -253,8 +258,7 @@ def schema_biz():
      "name":BIZ["name"],"url":DOMAIN+"/","telephone":BIZ["tel"],"email":BIZ["email"],
      "image":imgabs("exterior_patio"),"logo":DOMAIN+"/icon-512.png","founder":{"@type":"Person","name":BIZ["owner"]},
      "address":{"@type":"PostalAddress","streetAddress":BIZ["street"],"addressLocality":BIZ["city"],"addressRegion":BIZ["state"],"postalCode":BIZ["zip"],"addressCountry":"US"},
-     "geo":{"@type":"GeoCoordinates","latitude":39.7356,"longitude":-86.1287},
-     "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"07:00","closes":"19:00"}],
+          "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"07:00","closes":"19:00"}],
      "areaServed":[{"@type":"City","name":f'{c["name"]}, IN'} for c in CITIES],
      "sameAs":[BIZ["facebook"]],
     }
@@ -411,39 +415,77 @@ def build_kw(p):
     page(f'/{p["slug"]}/', p["title"], p["desc"], body, [svc_schema, crumb, fsch], imgabs(p["photo"]))
 
 def build_city(c):
+    n = c["name"]
     roof = SERVICES[0]
-    subs = "".join(sub_card(t, d, f"{t} in {c['name']}") for t,d in roof["subs"])
-    other = "".join(f'<li><a href="/{s["slug"]}/">{s["nav"]} in {c["name"]}</a></li>' for s in SERVICES[1:])
-    faqs = [(f"Do you offer roof repair in {c['name']}, IN?",f"Yes. We handle roof repairs, replacements, inspections and storm damage in {c['name']} for homes and commercial buildings. Call {BIZ['phone']}."),
-            (f"Do you install siding in {c['name']}?","Yes — siding installation, replacement and repair, often paired with roofing so the whole exterior is done at once."),
-            (f"Do you build home additions in {c['name']}?","Yes. We build room additions, primary suites and garage additions, including the roofing and siding tie-in.")]
+    types = "".join(sub_card(t, d, f"{t} in {n}") for t,d in roof["subs"] if t in ("Shingle Roofs","Metal Roofs","Rubber (EPDM) & Flat Roofs","Tile & Specialty Roofs"))
+    other = "".join(f'<li><a href="/{s["slug"]}/">{s["nav"]} in {n}</a></li>' for s in SERVICES[1:])
+    near = ", ".join(c["near"])
+    blocks = [
+     ("roof-repair", f"Roof Repair in {n}", f"Leaks, missing or lifted shingles, failed flashing around chimneys and skylights, cracked pipe boots and wind damage. We find the actual source of the leak, fix it properly and tell you honestly whether the rest of your roof is in good shape. Most {n} roof repair calls start with a ceiling stain or shingles in the yard after a storm."),
+     ("roof-replacement", f"Roof Replacement in {n}", f"When repairs stop making sense, we replace the roof start to finish: tear-off down to the deck, replacement of any soft decking, new underlayment, flashing and ventilation, then the new roof and a magnetic nail sweep. Chris walks you through materials and timing before work starts."),
+     ("roof-inspection", f"Roof Inspections in {n}", f"Buying or selling a home, checking after a storm, or getting ready for winter? We inspect from the roof and the attic, photograph every problem area and give you a straight answer: repair, replace, or leave it alone."),
+     ("storm-damage-roof-repair", f"Storm Damage & Emergency Roof Repair in {n}", f"Wind, hail and fallen limbs can open a roof in minutes. We secure the roof first to stop water getting in, then document the damage with photos and a written scope you can give your insurance adjuster."),
+     ("siding", f"Siding in {n}", f"Siding installation, replacement and repair, often done together with the roof so the whole exterior is weather-tight at once, with one crew and one schedule."),
+    ]
+    svc = "".join(f'<div class="kwsec"><h2>{e(h)}</h2><p>{e(t)}</p><p><a href="/{slug}/">More about {e(h.split(" in ")[0].lower())} →</a></p></div>' for slug,h,t in blocks)
+    faqs = [(f"Do you do roof repair and roof replacement in {n}, IN?",f"Yes. We handle roof repair, roof replacement, inspections and storm damage in {n} and the rest of {c['county']}, for homes and commercial buildings. Call {BIZ['phone']}."),
+            (f"How much does a roof replacement cost in {n}?","It depends on the size and pitch of the roof, the material, how many layers come off and whether any decking needs replacing. We give a free on-site estimate with a written scope and price, so you see exactly what you're paying for."),
+            (f"Can you come out quickly for a roof leak in {n}?",f"Call {BIZ['phone']}. For active leaks and storm damage we secure the roof first so no more water gets in, then plan the repair."),
+            ("Do you help with insurance claims after storm damage?","We document the damage with photos and a written scope you can give your adjuster. What your policy covers depends on your insurer and your coverage."),
+            (f"What areas around {n} do you serve?",f"{n} ({c['zips']}) and nearby communities including {near}. We work within about 40 miles of our Indianapolis shop."),
+            (f"Do you install siding and build home additions in {n}?","Yes. Siding installation and replacement, room additions, kitchens, bathrooms and full renovations, all from one owner-operated contractor.")]
     faq, fsch = faq_html(faqs)
+    crumb = {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":DOMAIN+"/"},{"@type":"ListItem","position":2,"name":f"Roofing in {n}, IN","item":f'{DOMAIN}/roofing-contractor-{c["slug"]}-in/'}]}
+    svc_schema = {"@context":"https://schema.org","@type":"Service","serviceType":"Roofing","name":f"Roof repair and roof replacement in {n}, IN",
+                  "provider":{"@type":"RoofingContractor","name":BIZ["name"],"telephone":BIZ["tel"]},"areaServed":{"@type":"City","name":f"{n}, IN","containedInPlace":{"@type":"AdministrativeArea","name":f"{c['county']}, Indiana"}}}
     body = f'''
-<section class="phero" style="--bg:url('{img("roof_slate",1800)}')"><div class="wrap"><p class="crumb"><a href="/">Home</a> / Service Areas / {c["name"]}</p>
-<h1>Roofing &amp; Siding Contractor in {c["name"]}, IN</h1><p class="lead">Roof repair, roof replacement, siding, home additions and remodeling for {c["name"]} homes and businesses. {e(c["note"])}</p>
-<div class="hero-cta"><a class="btn btn-gold btn-lg" href="tel:{BIZ["tel"]}">Call {BIZ["phone"]}</a><a class="btn btn-ghost btn-lg" href="#quote">Free Estimate</a></div></div></section>
-<section class="sec"><div class="wrap"><h2>Roofing Services in {c["name"]}</h2><div class="subs">{subs}</div>
-<p>Need more than a roof? We also handle:</p><ul class="links">{other}<li><a href="/commercial-roofing/">Commercial roofing in {c["name"]}</a></li><li><a href="/general-contractor/">General contractor in {c["name"]}</a></li></ul></div></section>
+<section class="phero" style="--bg:url('{img("roof_slate",1800)}')"><div class="wrap"><p class="crumb"><a href="/">Home</a> / Service Areas / {n}</p>
+<h1>Roofing Company in {n}, IN: Roof Repair &amp; Replacement</h1><p class="lead">Roof repair, roof replacement, roof inspections, storm damage and siding for {n} homes and businesses. {e(c["note"])}</p>
+<div class="hero-cta"><a class="btn btn-gold btn-lg" href="tel:{BIZ["tel"]}">Call {BIZ["phone"]}</a><a class="btn btn-ghost btn-lg" href="#quote">Free Estimate</a></div>
+<ul class="trust"><li>★ 4.8 Google rating</li><li>BBB Accredited since 2019</li><li>Owner on every job</li></ul></div></section>
+<section class="sec"><div class="wrap kwgrid">{svc}</div></section>
+<section class="sec alt"><div class="wrap"><h2>Roof Types We Work On in {n}</h2><div class="subs">{types}</div>
+<p>Need more than a roof? We also handle:</p><ul class="links">{other}<li><a href="/commercial-roofing/">Commercial roofing in {n}</a></li><li><a href="/general-contractor/">General contractor in {n}</a></li></ul></div></section>
 {reviews_html()}
-<section class="sec alt"><div class="wrap two"><div><h2>Why {c["name"]} Homeowners Call C.E. Enterprises</h2>
-<ul class="checks"><li>Owner-operated — you work directly with Chris Epple</li><li>BBB Accredited since 2019</li><li>4.8★ Google rating</li><li>Roofing, siding and remodeling under one contractor</li><li>Residential &amp; commercial</li></ul>
-<img src="{img("exterior_patio",900)}" alt="Home exterior by C.E. Enterprises" loading="lazy" class="rounded"></div><div id="quote">{quote_form(f"Free Estimate in {c['name']}")}</div></div></section>
+<section class="sec"><div class="wrap two"><div><h2>Serving {n} and {c["county"]}</h2>
+<p><b>ZIP codes:</b> {c["zips"]}<br><b>Nearby communities:</b> {e(near)}</p>
+<h3>Why {n} homeowners call C.E. Enterprises</h3>
+<ul class="checks"><li>Owner-operated: you work directly with Chris Epple</li><li>BBB Accredited since 2019</li><li>4.8★ Google rating</li><li>Roofing, siding and remodeling under one contractor</li><li>Residential &amp; commercial</li></ul></div>
+<div id="quote">{quote_form(f"Free Estimate in {n}")}</div></div></section>
 {faq}'''
-    page(f'/roofing-contractor-{c["slug"]}-in/', f'Roofing Contractor {c["name"]} IN | Roof Repair, Siding & Additions | C.E. Enterprises',
-         f'Roof repair, roof replacement, siding and home additions in {c["name"]}, IN. Residential & commercial. Owner-operated, BBB accredited. Call (317) 402-9681.', body, [fsch])
+    page(f'/roofing-contractor-{c["slug"]}-in/', f'Roof Repair & Replacement {n}, IN | Roofing Company | C.E. Enterprises',
+         f'Roofing company in {n}, IN: roof repair, roof replacement, inspections and storm damage. Owner-operated, BBB accredited, 4.8★ on Google. Free estimates: (317) 402-9681.', body, [svc_schema, crumb, fsch])
 
 def build_blog():
-    posts = POSTS + [json.load(open(f)) for f in sorted(glob.glob("posts/*.json"))]
+    def load_html_post(f):
+        # posts/*.html: first line is <!--{json header}-->, rest is the article body HTML
+        raw = open(f, encoding="utf-8").read()
+        head, body = raw.split("-->", 1)
+        meta = json.loads(head.strip()[4:])
+        meta["body"] = body.strip()
+        return meta
+    posts = POSTS + [json.load(open(f)) for f in sorted(glob.glob("posts/*.json"))] + [load_html_post(f) for f in sorted(glob.glob("posts/*.html"))]
     posts.sort(key=lambda p: p["date"], reverse=True)
     for p in posts:
         art = {"@context":"https://schema.org","@type":"BlogPosting","headline":p["title"],"description":p["desc"],"datePublished":p["date"],"image":imgabs(p["photo"]),
                "author":{"@type":"Person","name":BIZ["owner"]},"publisher":{"@type":"Organization","name":BIZ["name"],"logo":{"@type":"ImageObject","url":DOMAIN+"/img/logo.png"}},
-               "mainEntityOfPage":f'{DOMAIN}/blog/{p["slug"]}/'}
+               "mainEntityOfPage":f'{DOMAIN}/blog/{p["slug"]}/', "dateModified": p.get("updated", p["date"]),
+               "about": p.get("about", []), "keywords": ", ".join(p.get("keywords", []))}
+        schemas = [art]
+        extra = ""
+        if p.get("faqs"):
+            fsec, fsch = faq_html(p["faqs"]); extra += fsec; schemas.append(fsch)
+        if p.get("sources"):
+            extra += '<section class="sec"><div class="wrap narrow post sources"><h2>Sources</h2><ul>' + "".join(f'<li><a href="{e(u)}" target="_blank" rel="noopener">{e(t)}</a></li>' for t,u in p["sources"]) + '</ul></div></section>'
+        crumb = {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":DOMAIN+"/"},{"@type":"ListItem","position":2,"name":"Blog","item":DOMAIN+"/blog/"},{"@type":"ListItem","position":3,"name":p["title"],"item":f'{DOMAIN}/blog/{p["slug"]}/'}]}
+        schemas.append(crumb)
+        upd = f' · Updated {datetime.date.fromisoformat(p["updated"]).strftime("%B %d, %Y")}' if p.get("updated") and p["updated"] != p["date"] else ""
         body = f'''<section class="phero short" style="--bg:url('{img(p["photo"],1800)}')"><div class="wrap narrow"><p class="crumb"><a href="/">Home</a> / <a href="/blog/">Blog</a></p><h1>{e(p["title"])}</h1>
-<p class="meta">By {BIZ["owner"]} · {datetime.date.fromisoformat(p["date"]).strftime("%B %d, %Y")}</p></div></section>
+<p class="meta">By {BIZ["owner"]}, owner of C.E. Enterprises · {datetime.date.fromisoformat(p["date"]).strftime("%B %d, %Y")}{upd}</p></div></section>
 <article class="sec"><div class="wrap narrow post">{p["body"]}</div></article>
-<section class="sec alt"><div class="wrap narrow">{quote_form("Free Roof Inspection & Estimate")}</div></section>'''
-        page(f'/blog/{p["slug"]}/', p["title"] + " | C.E. Enterprises", p["desc"], body, [art], imgabs(p["photo"]))
+{extra}
+<section class="sec alt"><div class="wrap narrow">{quote_form("Free Estimate")}</div></section>'''
+        page(f'/blog/{p["slug"]}/', p.get("seo_title", p["title"] + " | C.E. Enterprises"), p["desc"], body, schemas, imgabs(p["photo"]))
     cards = "".join(f'<a class="card" href="/blog/{p["slug"]}/"><img src="{img(p["photo"],800)}" alt="" loading="lazy"><div><h3>{e(p["title"])}</h3><p>{e(p["desc"])}</p><span>Read more →</span></div></a>' for p in posts)
     page("/blog/", "Roofing, Siding & Remodeling Blog | C.E. Enterprises Indianapolis",
          "Roofing, siding, home addition and remodeling advice for Indianapolis-area homeowners from C.E. Enterprises.",
