@@ -4,7 +4,13 @@ Run: python3 build.py  -> writes ./public
 Add blog posts to POSTS (or posts/*.json) and rebuild; feed.xml + sitemap update automatically."""
 import os, json, shutil, html, datetime, glob, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from pages_seo import PAGES
+from pages_seo import PAGES, SERVICE_EXTRA, GC_EXTRA_SECTIONS, GC_EXTRA_FAQS
+for _p in PAGES:
+    if _p["slug"] == "general-contractor":
+        _p["sections"] = _p["sections"] + GC_EXTRA_SECTIONS
+        _p["faqs"] = GC_EXTRA_FAQS + _p["faqs"]
+        _p["title"] = "General Contractor Indianapolis IN | Remodeling, Room Additions & Roofing | C.E. Enterprises"
+        _p["h1"] = "General Contractor in Indianapolis, IN"
 from logo_data import LOGO_B64
 from favicon_data import FAVICON_ICO, ICON_192, ICON_512, APPLE_180
 LOGO = "data:image/png;base64," + LOGO_B64
@@ -60,6 +66,10 @@ CITIES = [
   "note":"We serve Noblesville and the rest of Hamilton County with roofing, siding and remodeling for homes and commercial buildings."},
  {"slug":"avon","name":"Avon","county":"Hendricks County","zips":"46123","near":["Plainfield","Brownsburg","Danville","Speedway","Clermont"],
   "note":"West of the city in Hendricks County, Avon homeowners call us for storm repairs, re-roofs, siding and room additions."},
+ {"slug":"beech-grove","name":"Beech Grove","county":"Marion County","zips":"46107","near":["Southport","University Heights","Garfield Park","Fountain Square","Indianapolis southeast side"],
+  "note":"Beech Grove is close to our shop on the southeast side of Indianapolis, so we can be there quickly for leaks, storm damage and estimates."},
+ {"slug":"zionsville","name":"Zionsville","county":"Boone County","zips":"46077","near":["Carmel","Whitestown","Westfield","Traders Point","Lebanon"],
+  "note":"Northwest of the city in Boone County, Zionsville homeowners call us for roof repair, roof replacement, siding and additions."},
 ]
 
 SERVICES = [
@@ -342,6 +352,12 @@ def build_home():
  <div class="wrap"><figure class="wide-photo"><img src="{img("framing",1600)}" alt="Room addition framing by C.E. Enterprises in Indianapolis" loading="lazy"><figcaption>A C.E. Enterprises room addition in the framing stage.</figcaption></figure></div></section>
 <section class="sec alt" id="work"><div class="wrap"><p class="eyebrow">Real projects</p><h2>Our Work</h2><p class="center sub">Every photo here is a C.E. Enterprises job, straight from our Google Business Profile.</p><div class="gallery">{gal}</div></div></section>
 {reviews_html()}
+<section class="sec" id="guides"><div class="wrap"><p class="eyebrow">Homeowner guides</p><h2>Answers Before You Call</h2><div class="cards">
+<a class="card" href="/blog/storm-hail-damage-roof-repair-indianapolis/"><img src="{img("roof_slate",800)}" alt="Hail damage roof repair in Indianapolis" loading="lazy"><div><h3>Hail Damage Roof Repair</h3><p>What hail damage looks like, the first 24 hours and your Indiana insurance rights.</p><span>Read the guide →</span></div></a>
+<a class="card" href="/blog/room-additions-indianapolis-costs-types-permits/"><img src="{img("framing",800)}" alt="Room addition framing in Indianapolis" loading="lazy"><div><h3>Room Additions</h3><p>Indianapolis costs by type, permits, timeline and the roof tie-in.</p><span>Read the guide →</span></div></a>
+<a class="card" href="/blog/how-to-hire-general-contractor-indianapolis/"><img src="{img("new_build",800)}" alt="General contractor project in Indianapolis" loading="lazy"><div><h3>Hiring a General Contractor</h3><p>Questions to ask, red flags and what Indiana contracts must include.</p><span>Read the guide →</span></div></a>
+<a class="card" href="/blog/kitchen-remodeling-indianapolis-cost-timeline/"><img src="{img("kitchen1",800)}" alt="Kitchen remodel in Indianapolis" loading="lazy"><div><h3>Kitchen Remodeling</h3><p>Costs, what adds the most value and how the process works.</p><span>Read the guide →</span></div></a>
+</div><p class="center"><a class="btn btn-outline" href="/blog/">All guides</a></p></div></section>
 <section class="sec" id="areas"><div class="wrap"><p class="eyebrow">Service areas</p><h2>Serving the Indianapolis Metro — 40-Mile Radius</h2><div class="areas">{areas}</div>
 <div class="map"><iframe title="C.E. Enterprises Indy Roofing Siding &amp; Restoration LLC on Google Maps" loading="lazy" src="https://www.google.com/maps?q=C.E.+Enterprises+indy+Roofing+Siding+%26+Restoration+LLC,+2065+S+Kitley+Ave,+Indianapolis,+IN+46203&amp;output=embed"></iframe></div>
 <div class="map-cta"><a class="btn btn-green" href="{BIZ["gmb"]}" target="_blank" rel="noopener">View us on Google ★ 4.8</a><a class="btn btn-outline" href="https://www.google.com/maps/dir/?api=1&amp;destination=C.E.+Enterprises+indy+Roofing+Siding+%26+Restoration+LLC,+2065+S+Kitley+Ave,+Indianapolis,+IN+46203" target="_blank" rel="noopener">Get Directions</a></div></div></section>
@@ -349,8 +365,8 @@ def build_home():
 <ol class="steps"><li><b>Call or send the form.</b> Tell us what's going on — leak, storm damage, new siding, an addition or a remodel.</li><li><b>On-site visit.</b> Chris comes out, inspects, takes photos and listens to what you want.</li><li><b>Written estimate.</b> Clear scope and price, no pressure.</li><li><b>We build it.</b> One crew, clean site, regular updates through the final walkthrough.</li></ol></div>
 <div id="quote" class="qwrap">{quote_form("Request Your Free Estimate")}</div></div></section>
 {faq}'''
-    page("/", "Roofing Contractor Indianapolis IN | Siding, Additions & Remodeling | C.E. Enterprises",
-         "Owner-operated roofing, siding, home additions, custom homes, kitchen & bath remodeling in Indianapolis, Greenwood, Westfield, Noblesville & Avon. Call (317) 402-9681.",
+    page("/", "Roofing & General Contractor Indianapolis | Hail Damage, Room Additions | C.E. Enterprises",
+         "Owner-operated roofing and general contractor in Indianapolis: hail damage roof repair, siding, room additions, kitchen & bath remodeling. Greenwood, Westfield, Avon & more.",
          body, [fsch])
 
 SUBLINK = {"Roof Inspection":"roof-inspection","Roof Repair":"roof-repair","Roof Replacement & Re-Roofing":"roof-replacement",
@@ -376,18 +392,21 @@ def build_service(s):
     faqs = [(f"Do you offer {s['nav'].lower()} for commercial properties?","Yes. We work on both residential and commercial properties across the Indianapolis metro."),
             (f"Where do you offer {s['nav'].lower()}?","Indianapolis, Greenwood, Westfield, Noblesville, Avon and communities within about 40 miles of our Indianapolis shop."),
             ("How do I get a price?",f"Call {BIZ['phone']} or use the estimate form. Estimates are free.")]
+    X = SERVICE_EXTRA.get(s["slug"], {})
+    if X.get("faqs"): faqs = X["faqs"] + faqs
     faq, fsch = faq_html(faqs)
     svc_schema = {"@context":"https://schema.org","@type":"Service","serviceType":s["nav"],"provider":{"@type":"LocalBusiness","name":BIZ["name"],"telephone":BIZ["tel"]},"areaServed":[f'{c["name"]}, IN' for c in CITIES]}
     body = f'''
 <section class="phero" style="--bg:url('{img(s["photo"],1800)}')"><div class="wrap"><p class="crumb"><a href="/">Home</a> / {s["nav"]}</p><h1>{s["h1"]}</h1><p class="lead">{e(s["intro"])}</p>
 <div class="hero-cta"><a class="btn btn-gold btn-lg" href="tel:{BIZ["tel"]}">Call {BIZ["phone"]}</a><a class="btn btn-ghost btn-lg" href="#quote">Free Estimate</a></div></div></section>
 <section class="sec"><div class="wrap"><h2>{s["nav"]} Services</h2><div class="subs">{subs}</div>{extra}</div></section>
-<section class="sec alt"><div class="wrap"><h2>Recent {s["nav"]} Work</h2><div class="gallery">{gal}</div></div></section>
+{X.get("more","")}
+<section class="sec"><div class="wrap"><h2>Recent {s["nav"]} Work</h2><div class="gallery">{gal}</div></div></section>
 {reviews_html()}
 <section class="sec"><div class="wrap two"><div><h2>{s["nav"]} Near You</h2><p>We provide {s["nav"].lower()} for homes and businesses in {links} and the surrounding area — about a 40-mile radius from our shop at {BIZ["street"]}, Indianapolis.</p>
 <ul class="checks"><li>Owner Chris Epple on every project</li><li>BBB Accredited since 2019</li><li>Residential &amp; commercial</li><li>Free estimates</li></ul></div><div id="quote">{quote_form()}</div></div></section>
 {faq}'''
-    page(f'/{s["slug"]}/', s["title"], s["desc"], body, [svc_schema, fsch], imgabs(s["photo"]))
+    page(f'/{s["slug"]}/', X.get("title", s["title"]), X.get("desc", s["desc"]), body, [svc_schema, fsch], imgabs(s["photo"]))
 
 def build_kw(p):
     secs = "".join(f'<div class="kwsec"><h2>{e(h)}</h2>{b if b.lstrip().startswith("<") else "<p>"+b+"</p>"}</div>' for h,b in p["sections"])

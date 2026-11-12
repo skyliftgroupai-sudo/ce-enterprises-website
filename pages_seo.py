@@ -204,3 +204,100 @@ PAGES = [
           ("Do you do residential and commercial work?","Yes, both."),
           ("Where do you work?","Indianapolis and about 40 miles around it, including Greenwood, Westfield, Noblesville and Avon.")]},
 ]
+
+
+# ---------------------------------------------------------------------------
+# Extra content for service pages that rank on page 2-3 (Nov 2026 GSC data).
+# Figures are cited on-page: Angi (Indianapolis, Jun 2026) and JLC Cost vs Value 2025 (national).
+SERVICE_EXTRA = {
+ "kitchen-remodeling": {
+  "title": "Kitchen Remodeling Indianapolis IN | Kitchen Remodeler & Costs | C.E. Enterprises",
+  "desc": "Kitchen remodeling in Indianapolis: cabinets, countertops, layout changes and full remodels from an owner-operated contractor. Costs, timeline and process. Free estimates.",
+  "more": """
+<section class="sec alt"><div class="wrap narrow post">
+<div class="answer"><b>Short answer</b><p>A kitchen remodel in the Indianapolis area can range from a cabinet and countertop refresh to a full layout change. Nationally, a midrange minor kitchen remodel averages $28,458 and a midrange major remodel averages $82,793 (JLC Cost vs Value 2025). The minor remodel also recoups the most at resale, about 113% of its cost. Your price depends on cabinets, countertops, whether walls, plumbing or electrical move, and finishes.</p></div>
+<h2>What a kitchen remodel costs</h2>
+<div class="tbl"><table>
+<tr><th>Project (national, 2025)</th><th>Average job cost</th><th>Cost recouped at resale</th></tr>
+<tr><td>Minor kitchen remodel, midrange</td><td>$28,458</td><td>112.9%</td></tr>
+<tr><td>Major kitchen remodel, midrange</td><td>$82,793</td><td>50.9%</td></tr>
+<tr><td>Major kitchen remodel, upscale</td><td>$164,104</td><td>35.7%</td></tr>
+</table></div>
+<p class="note">Source: <a href="https://www.jlconline.com/cost-vs-value/2025/national/" target="_blank" rel="noopener">JLC Cost vs Value 2025, national report</a>. National averages, not a quote.</p>
+<h2>How our kitchen remodeling process works</h2>
+<ol>
+<li><b>Walkthrough and wish list.</b> Chris looks at the space and talks through how you cook and what isn't working.</li>
+<li><b>Scope and written estimate.</b> Cabinets, countertops, backsplash, flooring, lighting and any layout changes, in writing.</li>
+<li><b>Selections.</b> Finalize cabinets, tops and finishes before demolition, so the kitchen isn't torn out waiting on orders.</li>
+<li><b>Demolition and rough-in.</b> Plumbing, electrical and any wall changes.</li>
+<li><b>Install.</b> Cabinets, countertops, backsplash, flooring and fixtures.</li>
+<li><b>Final walkthrough</b> and punch list with the owner.</li>
+</ol>
+<h2>Popular kitchen remodeling upgrades</h2>
+<ul>
+<li>White shaker cabinets with a large island (see our <a href="/#work">project photos</a>)</li>
+<li>Quartz countertops and full-height tile backsplash</li>
+<li>Opening a wall to connect the kitchen to the living area</li>
+<li>Under-cabinet lighting and new flooring that runs into adjoining rooms</li>
+</ul>
+<p>Planning a bigger project? A kitchen is often part of a <a href="/home-additions/">home addition</a> or <a href="/full-home-renovation/">full house renovation</a>. Read our <a href="/blog/kitchen-remodeling-indianapolis-cost-timeline/">kitchen remodeling guide</a>.</p>
+</div></section>""",
+  "faqs": [
+   ("How much does a kitchen remodel cost in Indianapolis?", "It depends on scope. National 2025 averages are $28,458 for a midrange minor kitchen remodel and $82,793 for a midrange major remodel (JLC Cost vs Value). We give a free written estimate after seeing your kitchen."),
+   ("Which kitchen remodel adds the most value?", "In the 2025 Cost vs Value report, a midrange minor kitchen remodel recouped about 113% of its cost at resale nationally, more than a major remodel (about 51%)."),
+   ("How long does a kitchen remodel take?", "A cabinet and countertop refresh takes far less time than a remodel that moves walls, plumbing or electrical. Ordering cabinets and counters before demolition is the biggest factor in keeping the kitchen out of service for as short a time as possible."),
+   ("Do I need a permit for a kitchen remodel?", "Cosmetic work usually doesn't, but moving plumbing, electrical or walls generally requires permits. We'll tell you what your project needs."),
+   ("Do you remodel kitchens outside Indianapolis?", "Yes. We remodel kitchens in Greenwood, Westfield, Noblesville, Avon, Beech Grove, Zionsville and within about 40 miles of Indianapolis."),
+  ],
+ },
+ "home-additions": {
+  "title": "Room Additions & Home Additions Indianapolis IN | Costs & Contractor | C.E. Enterprises",
+  "desc": "Room additions and home additions in Indianapolis: bedroom, primary suite, bump-out and garage additions. Indianapolis costs per sq ft, timeline, permits and the roof tie-in.",
+  "more": """
+<section class="sec alt"><div class="wrap narrow post">
+<div class="answer"><b>Short answer</b><p>A room addition in Indianapolis averages about $45,936, with most between $20,001 and $69,478, or roughly $75 to $180 per square foot (Angi, June 2026). A bump-out costs far less than a full bedroom or primary suite. Additions require a building permit, and the most important detail is how the new roof ties into the existing one, because that's where most additions leak.</p></div>
+<h2>Room addition costs in Indianapolis</h2>
+<div class="tbl"><table>
+<tr><th>Addition type</th><th>Indianapolis cost (Angi)</th></tr>
+<tr><td>Bump-out</td><td>$3,830 to $28,700</td></tr>
+<tr><td>Sunroom</td><td>$9,570 to $38,300</td></tr>
+<tr><td>Bathroom</td><td>About $21,100 average</td></tr>
+<tr><td>Bedroom</td><td>About $47,900 average</td></tr>
+<tr><td>Primary suite (bedroom + bath)</td><td>$28,700 to $95,700</td></tr>
+<tr><td>Room above a garage</td><td>About $43,100 average</td></tr>
+<tr><td>In-law suite</td><td>$42,100 to $95,700</td></tr>
+</table></div>
+<p class="note">Source: <a href="https://www.angi.com/articles/how-much-does-it-cost-add-room/in/indianapolis" target="_blank" rel="noopener">Angi, room addition cost in Indianapolis (updated June 9, 2026)</a>. Estimates, not a quote.</p>
+<h2>How a room addition comes together</h2>
+<ol>
+<li><b>Planning:</b> what the room is for, where it attaches, and the budget.</li>
+<li><b>Design and permit:</b> drawings and the building permit for your city.</li>
+<li><b>Foundation and framing:</b> footings, floor system, walls and roof framing.</li>
+<li><b>Dry-in:</b> sheathing, house wrap, windows, the roof and the tie-in to the existing roof, then siding to match.</li>
+<li><b>Mechanicals:</b> electrical, HVAC and plumbing as needed.</li>
+<li><b>Interior finish:</b> insulation, drywall, flooring, trim and paint.</li>
+<li><b>Final inspection and walkthrough.</b></li>
+</ol>
+<h2>Why the roof tie-in matters</h2>
+<p>Where a new addition roof meets the existing roof and walls is the most common place for an addition to leak. Because roofing and siding are our core trades, we frame, flash and shingle the tie-in ourselves and match the siding, so the addition looks like it was always part of the house.</p>
+<p>Read our full <a href="/blog/room-additions-indianapolis-costs-types-permits/">room additions guide</a>, or see a <a href="/#work">recent addition in progress</a>.</p>
+</div></section>""",
+  "faqs": [
+   ("How much does a room addition cost in Indianapolis?", "Angi puts the Indianapolis average at about $45,936, with most room additions between $20,001 and $69,478, or about $75 to $180 per square foot (June 2026). The type of room, size, foundation and finishes drive the price."),
+   ("What is the cheapest way to add space?", "A bump-out (about $3,830 to $28,700 in Indianapolis per Angi), or finishing a basement or attic, usually costs less than building a full new room on a foundation."),
+   ("Do I need a permit for a room addition?", "Yes. Room additions require a building permit in Indianapolis and the surrounding cities, along with inspections during construction."),
+   ("Can you build a primary suite addition?", "Yes. We build bedroom and bathroom additions together, from framing and roofing through interior finish."),
+   ("Do you build additions outside Indianapolis?", "Yes, in Greenwood, Westfield, Noblesville, Avon, Beech Grove, Zionsville and within about 40 miles of Indianapolis."),
+  ],
+ },
+}
+
+GC_EXTRA_SECTIONS = [
+ ("What a general contractor does", "A general contractor runs your whole project: scope and pricing, scheduling every trade, ordering materials, coordinating permits and inspections, keeping the site safe and clean, and being the one person responsible for the result."),
+ ("When you need a general contractor", "<ul><li><a href=\"/home-additions/\">Room additions</a> and garage additions</li><li><a href=\"/custom-home-builder/\">Custom homes</a></li><li>Remodels that move walls, plumbing or electrical, like a <a href=\"/kitchen-remodeling/\">kitchen</a> or <a href=\"/bathroom-remodeling/\">bathroom remodel</a></li><li>Storm damage that affects the roof, siding and interior together</li></ul>"),
+ ("What your contract should include (Indiana)", "Indiana Code 24-5-11-10 requires a real property improvement contract to include, among other things, a reasonably detailed description of the work, approximate start and completion dates, the contract price, the contractor's name, address and email, and signatures. <a href=\"/blog/how-to-hire-general-contractor-indianapolis/\">Read our guide to hiring a general contractor</a>."),
+]
+GC_EXTRA_FAQS = [
+ ("How do I choose a general contractor in Indianapolis?", "Check local reviews on Google and the BBB, ask to see similar finished projects, get a written contract that meets Indiana's requirements, confirm who will be on site, and make sure permits are part of the plan."),
+ ("Is C.E. Enterprises a general contractor or a roofer?", "Both. C.E. Enterprises started in roofing and siding and works as a general contractor on additions, custom homes, kitchens, bathrooms and full renovations."),
+]
